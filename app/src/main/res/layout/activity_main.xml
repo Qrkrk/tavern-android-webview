@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    酒馆主布局 — 极简全屏 WebView
+    无地址栏、无按钮、无标题栏
+-->
+<WebView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/webView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
