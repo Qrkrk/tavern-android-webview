@@ -16,6 +16,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.MotionEvent
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.util.Base64
 import android.webkit.CookieManager
 import android.webkit.JavascriptInterface
@@ -381,24 +383,43 @@ class MainActivity : AppCompatActivity() {
     //  全屏 / 普通模式切换
     // ==================================================================
 
-    /** 进入全屏沉浸式模式 — 隐藏状态栏和底部导航栏 */
+    /**
+     * 进入全屏沉浸式模式 — 隐藏状态栏和底部导航栏。
+     * API 30+ 使用 WindowInsetsController（不影响文字选择 ActionMode），
+     * 低版本使用 SYSTEM_UI_FLAG_* 方案。
+     */
     private fun enterFullScreenMode() {
-        @Suppress("DEPRECATION")
-        window.decorView.systemUiVisibility = (
-            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // 让内容延伸到系统栏区域
+            window.setDecorFitsSystemWindows(false)
+            val controller = window.insetsController
+            controller?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+            controller?.systemBarsBehavior =
+                WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        } else {
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                )
+        }
     }
 
-    /** 进入普通模式 — 保留系统状态栏和导航栏 */
+    /** 进入普通模式 — 保留系统状态栏和导航栏（包括 ActionMode 弹出栏） */
     private fun enterNormalMode() {
-        @Suppress("DEPRECATION")
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
-        WindowCompat.setDecorFitsSystemWindows(window, true)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(true)
+            val controller = window.insetsController
+            controller?.show(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+        } else {
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+            WindowCompat.setDecorFitsSystemWindows(window, true)
+        }
     }
 
     // ==================================================================

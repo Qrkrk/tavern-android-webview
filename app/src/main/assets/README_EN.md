@@ -59,18 +59,6 @@ tavern-android-webview/
 - **File uploads**: System file picker via `ActivityResultLauncher`, no storage permissions required
 - **Minimal permissions**: Only `INTERNET` + `ACCESS_NETWORK_STATE`, no storage permissions whatsoever
 
-## Launcher Icon
-
-To change the app icon, use Android Studio's **Image Asset Studio** with a 512×512 source image to auto-generate all densities:
-
-1. Open the project in Android Studio
-2. Right-click `app` → **New** → **Image Asset**
-3. Set **Foreground Layer** to your 512×512 image, pick a solid **Background Layer**
-4. Keep **Legacy** tab checked to generate PNGs for older devices
-5. Click **Next** → **Finish**
-
-For manual preparation: mdpi 48×48 / hdpi 72×72 / xhdpi 96×96 / xxhdpi 144×144 / xxxhdpi 192×192.
-
 ## Build & Run
 
 1. Open the project root in **Android Studio**

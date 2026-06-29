@@ -59,18 +59,6 @@ tavern-android-webview/
 - **文件上传**：通过 `ActivityResultLauncher` 启动系统文件选择器，无需存储权限
 - **权限极简**：仅 `INTERNET` + `ACCESS_NETWORK_STATE`，无任何存储权限
 
-## 启动器图标配置
-
-如果想要修改 App 图标，推荐使用 Android Studio 的 Image Asset Studio，只需一张 512×512 的图片即可自动生成全部分辨率。
-
-1. 用 Android Studio 打开项目
-2. 右键 `app` → **New** → **Image Asset**
-3. **Foreground Layer** 选择你的 512×512 图片，**Background Layer** 选纯色
-4. **Legacy** 标签页保持勾选，自动生成旧设备 PNG
-5. 点击 **Next** → **Finish**
-
-如需手动准备多分辨率 PNG，各密度尺寸如下：mdpi 48×48 / hdpi 72×72 / xhdpi 96×96 / xxhdpi 144×144 / xxxhdpi 192×192。
-
 ## 编译运行
 
 1. 用 **Android Studio** 打开项目根目录
