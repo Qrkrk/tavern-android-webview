@@ -69,8 +69,6 @@ tavern-android-webview/
 4. **Legacy** 标签页保持勾选，自动生成旧设备 PNG
 5. 点击 **Next** → **Finish**
 
-如需手动准备多分辨率 PNG，各密度尺寸如下：mdpi 48×48 / hdpi 72×72 / xhdpi 96×96 / xxhdpi 144×144 / xxxhdpi 192×192。
-
 ## 编译运行
 
 1. 用 **Android Studio** 打开项目根目录
