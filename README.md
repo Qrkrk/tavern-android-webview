@@ -61,7 +61,7 @@ tavern-android-webview/
 
 ## 启动器图标配置
 
-项目当前使用占位图标。推荐使用 Android Studio 的 Image Asset Studio，只需一张 512×512 的图片即可自动生成全部分辨率。
+如果想要修改 App 图标，推荐使用 Android Studio 的 Image Asset Studio，只需一张 512×512 的图片即可自动生成全部分辨率。
 
 1. 用 Android Studio 打开项目
 2. 右键 `app` → **New** → **Image Asset**

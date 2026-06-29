@@ -61,7 +61,7 @@ tavern-android-webview/
 
 ## Launcher Icon
 
-Placeholder icons are included. Use Android Studio's **Image Asset Studio** with a 512×512 source image to auto-generate all densities:
+To change the app icon, use Android Studio's **Image Asset Studio** with a 512×512 source image to auto-generate all densities:
 
 1. Open the project in Android Studio
 2. Right-click `app` → **New** → **Image Asset**
@@ -91,14 +91,6 @@ npx serve -p 8000
 ```
 
 Emulators can reach `localhost` out of the box. For physical devices, use USB port forwarding:
-
-```bash
-adb reverse tcp:8000 tcp:8000
-```
-
----
-
-Project: [github.com/Qrkrk/tavern-android-webview](https://github.com/Qrkrk/tavern-android-webview)
 
 ```bash
 adb reverse tcp:8000 tcp:8000
