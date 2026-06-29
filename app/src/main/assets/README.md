@@ -1,8 +1,17 @@
-# 酒馆 (Tavern) — Android WebView 极简浏览器
+# 酒馆 (Tavern) — 手机上的无 UI 网页浏览器
 
 [English](README_EN.md)
 
-一个全屏 WebView 浏览器应用，加载本地 `http://localhost:8000`（常用于 [SillyTavern](https://github.com/SillyTavern/SillyTavern) 等 AI 前端）。支持沉浸式全屏 / 普通双模式，文件下载（含角色卡导出）和上传，无需任何存储权限。
+专为手机端 [SillyTavern](https://github.com/SillyTavern/SillyTavern) 用户打造的极简 WebView 浏览器。
+
+SillyTavern 通过 Termux 部署在手机上后，需要用浏览器打开。但手机浏览器都有地址栏、标签页、菜单等 UI 遮挡，本来就小的屏幕被占掉一大块，留给文字的空间更少了。
+
+这个 App 就是一个**纯粹的画布**——无地址栏、无标题栏、无任何按钮，100% 的屏幕都给聊天内容。同时因为是原生 WebView，比系统浏览器更省电。
+
+- **📱 零 UI 遮挡**：地址栏、标签栏、菜单统统没有，所有像素属于内容
+- **⚡ 极轻量**：APK 不足 5 MB，原生 WebView 比浏览器省电
+- **🎯 专为酒馆优化**：角色卡导出、文件上传、沉浸式全屏
+- **🔒 零隐私顾虑**：仅网络权限，不碰存储、不碰相册
 
 ## 技术栈
 
@@ -86,3 +95,7 @@ npx serve -p 8000
 ```bash
 adb reverse tcp:8000 tcp:8000
 ```
+
+---
+
+项目地址：[github.com/Qrkrk/tavern-android-webview](https://github.com/Qrkrk/tavern-android-webview)

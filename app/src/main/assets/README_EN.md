@@ -1,8 +1,17 @@
-# Tavern (酒馆) — Minimal Android WebView Browser
+# Tavern (酒馆) — Chrome-free WebView Browser for Mobile
 
 [中文](README.md)
 
-A full-screen WebView browser that loads `http://localhost:8000` (commonly used with [SillyTavern](https://github.com/SillyTavern/SillyTavern) and other AI frontends). Supports immersive fullscreen / normal dual modes, file downloads (including character card exports), and uploads — all without storage permissions.
+A minimal WebView browser purpose-built for running [SillyTavern](https://github.com/SillyTavern/SillyTavern) on mobile devices.
+
+When SillyTavern is running on your phone via Termux, you need a browser to access it. But mobile browsers all have address bars, tabs, and menus — UI chrome that eats into your already tiny screen, leaving even less room for text.
+
+This app is a **pure canvas** — no address bar, no title bar, no buttons whatsoever. Every pixel belongs to your content. And because it's a native WebView, it's more battery-friendly than a full browser.
+
+- **📱 Zero UI obstruction** — No address bar, no tabs, no menus. 100% screen for content
+- **⚡ Featherweight** — APK under 5 MB, native WebView is more power-efficient than a browser
+- **🎯 Built for SillyTavern** — Character card export, file upload, immersive fullscreen
+- **🔒 Zero privacy concerns** — Network permission only, no storage, no gallery access
 
 ## Tech Stack
 
@@ -82,6 +91,14 @@ npx serve -p 8000
 ```
 
 Emulators can reach `localhost` out of the box. For physical devices, use USB port forwarding:
+
+```bash
+adb reverse tcp:8000 tcp:8000
+```
+
+---
+
+Project: [github.com/Qrkrk/tavern-android-webview](https://github.com/Qrkrk/tavern-android-webview)
 
 ```bash
 adb reverse tcp:8000 tcp:8000
