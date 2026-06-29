@@ -257,23 +257,26 @@ class MainActivity : AppCompatActivity() {
      * 系统检测到长按（约 500ms）后，通过 Handler 延时 5000ms；
      * 若中途手指抬起或移动则取消，避免误触。
      */
+    /**
+     * 注册触摸监听实现 5 秒长按重置，同时不拦截 WebView 原生事件。
+     * 之前用 setOnLongClickListener（返回 true 消费事件）导致 WebView 收不到
+     * 长按 → 文字选择 ActionMode 无法弹出。改为纯 OnTouchListener 计时方案：
+     * ACTION_DOWN 启动 5 秒倒计时，UP/CANCEL 时取消，始终返回 false 不消费。
+     */
     @SuppressLint("ClickableViewAccessibility")
     private fun setupLongPressReset() {
-        webView.setOnLongClickListener {
-            // 系统长按触发 → 启动 5 秒倒计时
-            resetHandler.removeCallbacks(resetRunnable)
-            resetHandler.postDelayed(resetRunnable, 5000)
-            true // 消费事件
-        }
-
-        // 手指抬起或取消时清除倒计时，防止误触
         webView.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_UP ||
-                event.action == MotionEvent.ACTION_CANCEL
-            ) {
-                resetHandler.removeCallbacks(resetRunnable)
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    resetHandler.removeCallbacks(resetRunnable)
+                    resetHandler.postDelayed(resetRunnable, 5000)
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    resetHandler.removeCallbacks(resetRunnable)
+                }
+                // ACTION_MOVE 不取消——手指轻微抖动不影响计时
             }
-            false // 不消费，事件继续传递给 WebView
+            false // 不消费！WebView 正常处理触摸、长按选字、点击等
         }
     }
 
