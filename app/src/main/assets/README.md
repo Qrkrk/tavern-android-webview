@@ -1,6 +1,6 @@
 # 酒馆 (Tavern) — 手机上的无 UI 网页浏览器
 
-[English](README_EN.md)
+项目地址：[https://github.com/Qrkrk/tavern-android-webview]
 
 专为手机端 [SillyTavern](https://github.com/SillyTavern/SillyTavern) 用户打造的极简 WebView 浏览器。
 

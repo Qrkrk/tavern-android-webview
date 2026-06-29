@@ -1,6 +1,6 @@
 # Tavern (酒馆) — Chrome-free WebView Browser for Mobile
 
-[中文](README.md)
+Project:[https://github.com/Qrkrk/tavern-android-webview]
 
 A minimal WebView browser purpose-built for running [SillyTavern](https://github.com/SillyTavern/SillyTavern) on mobile devices.
 
