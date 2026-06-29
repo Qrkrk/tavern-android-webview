@@ -69,8 +69,6 @@ To change the app icon, use Android Studio's **Image Asset Studio** with a 512×
 4. Keep **Legacy** tab checked to generate PNGs for older devices
 5. Click **Next** → **Finish**
 
-For manual preparation: mdpi 48×48 / hdpi 72×72 / xhdpi 96×96 / xxhdpi 144×144 / xxxhdpi 192×192.
-
 ## Build & Run
 
 1. Open the project root in **Android Studio**
