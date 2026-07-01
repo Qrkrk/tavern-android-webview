@@ -178,6 +178,19 @@ class MainActivity : AppCompatActivity() {
                         view.evaluateJavascript(BLOB_INTERCEPT_SCRIPT, null)
                     }
                 }
+
+                override fun shouldOverrideUrlLoading(
+                    view: WebView,
+                    request: android.webkit.WebResourceRequest
+                ): Boolean {
+                    val host = request.url.host ?: return false
+                    return if (host == "127.0.0.1") {
+                        false // 当前域留在 WebView 内
+                    } else {
+                        startActivity(Intent(Intent.ACTION_VIEW, request.url))
+                        true // 外链交给系统浏览器
+                    }
+                }
             }
             webChromeClient = TavernWebChromeClient()
 
@@ -263,18 +276,33 @@ class MainActivity : AppCompatActivity() {
      * 长按 → 文字选择 ActionMode 无法弹出。改为纯 OnTouchListener 计时方案：
      * ACTION_DOWN 启动 5 秒倒计时，UP/CANCEL 时取消，始终返回 false 不消费。
      */
+    /**
+     * 注册触摸监听实现 5 秒长按重置，不拦截 WebView 原生事件。
+     * 记录按下坐标，移动超过 20px 则取消计时——区分"按住不动"和"滑动屏幕"。
+     */
     @SuppressLint("ClickableViewAccessibility")
     private fun setupLongPressReset() {
+        var initialX = 0f
+        var initialY = 0f
+
         webView.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
+                    initialX = event.x
+                    initialY = event.y
                     resetHandler.removeCallbacks(resetRunnable)
                     resetHandler.postDelayed(resetRunnable, 5000)
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    val dx = Math.abs(event.x - initialX)
+                    val dy = Math.abs(event.y - initialY)
+                    if (dx > 20f || dy > 20f) {
+                        resetHandler.removeCallbacks(resetRunnable)
+                    }
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                     resetHandler.removeCallbacks(resetRunnable)
                 }
-                // ACTION_MOVE 不取消——手指轻微抖动不影响计时
             }
             false // 不消费！WebView 正常处理触摸、长按选字、点击等
         }
